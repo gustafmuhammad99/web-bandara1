@@ -19,13 +19,84 @@
             height: 100%;
             padding: 0;
             margin: 0;
-        }
+	}
+        .leaflet-popup-content {
+    	    max-width: 600px !important;
+    	    width: auto;
+	}
+
+	.leaflet-popup-content img {
+	    display: block;
+    	    margin: 10px auto;
+    	    max-width: 100% !important;
+    	    height: auto;
+    	    border: 1px solid #ccc;
+     	    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	}
+
+/* Logo pojok kanan atas */
+	#logo-kemenhub {
+    		position: absolute;
+    		top: 10px;
+    		left: 10px;
+    		z-index: 1000;
+    		background-color: rgba(255, 255, 255, 0.7);
+    		padding: 6px 10px;
+    		border-radius: 8px;
+    		box-shadow: 0 0 5px rgba(0,0,0,0.2);
+		display: flex;
+    		align-items: center;
+    		gap: 10px;
+	}
+
+	#logo-kemenhub img {
+    		height: 60px;
+	}
+	.judul-kemenhub {
+    		font-size: 14px;
+    		font-weight: bold;
+    		color: #004ba8; /* biru khas Kemenhub */
+    		font-family: Arial, sans-serif;
+    		letter-spacing: 1px;
+	}
+	/* Popup: teks + gambar */
+	.leaflet-popup-content {
+    		max-width: 600px !important;
+	}
+	.leaflet-popup-content img {
+    		display: block;
+    		margin: 10px auto;
+    		max-width: 100%;
+    		width: 200px;        /* Atur ukuran real layout, biar gak tumpuk */
+   	 	height: auto;
+    		border: 1px solid #ccc;
+    		box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	}
+        .foto-gallery {
+    		display: flex;
+    		flex-wrap: wrap;
+    		justify-content: center;
+   		gap: 12px;
+    		margin-top: 10px;
+	}
+
+	.foto-gallery .foto-item img {
+    		max-width: 150px;
+    		height: auto;
+    		border: 1px solid #ccc;
+    		box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    		border-radius: 4px;
+	}
         </style>
         <title></title>
     </head>
     <body>
         <div id="map">
         </div>
+	<div id="logo-kemenhub">
+    	<img src="images/logo_kemenhub.png" alt="Logo Kemenhub">
+    	<span class="judul-kemenhub">KEMENTERIAN PERHUBUNGAN</span>
+	</div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
@@ -226,6 +297,10 @@
                         <th scope="row">Pemrakarsa</th>\
                         <td>' + (feature.properties['Pemrakarsa'] !== null ? autolinker.link(String(feature.properties['Pemrakarsa']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
+		    <tr>\
+                        <th scope="row">Pem_Fix</th>\
+                        <td>' + (feature.properties['Pem_Fix'] !== null ? autolinker.link(String(feature.properties['Pem_Fix']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
                     <tr>\
                         <th scope="row">Dokumen_Pe</th>\
                         <td>' + (feature.properties['Dokumen_Pe'] !== null ? autolinker.link(String(feature.properties['Dokumen_Pe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -254,10 +329,18 @@
                         <th scope="row">CATATAN</th>\
                         <td>' + (feature.properties['CATATAN'] !== null ? autolinker.link(String(feature.properties['CATATAN']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                    <tr>\
-                        <th scope="row">Pem_Fix</th>\
-                        <td>' + (feature.properties['Pem_Fix'] !== null ? autolinker.link(String(feature.properties['Pem_Fix']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
+		    <tr>\
+			<th scope="row">Foto 1</th>\
+			<td>' + (feature.properties['Link_Foto_'] !== null ? feature.properties['Link_Foto_'] : 'Tidak tersedia') + '</td>\
+		    </tr>\
+		    <tr>\
+			<th scope="row">Foto 2</th>\
+			<td>' + (feature.properties['Foto'] !== null ? feature.properties['Foto'] : 'Tidak tersedia') + '</td>\
+		    </tr>\
+		    <tr>\
+			<th scope="row">Foto 3</th>\
+			<td>' + (feature.properties['FOTO_1'] !== null ? feature.properties['FOTO_1'] : 'Tidak tersedia') + '</td>\
+		    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
