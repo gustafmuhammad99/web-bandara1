@@ -147,10 +147,10 @@
 			}
 		}
         var zoomControl = L.control.zoom({
-            position: 'topleft'
+            position: 'topright'
         }).addTo(map);
         var measureControl = new L.Control.Measure({
-            position: 'topleft',
+            position: 'topright',
             primaryLengthUnit: 'meters',
             secondaryLengthUnit: 'kilometers',
             primaryAreaUnit: 'sqmeters',
@@ -387,7 +387,7 @@
         map.addLayer(layer_Data_Bandara__1);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
-            position: 'topleft',
+            position: 'topright',
             text: 'Search',
             title: 'Testing'
         }).addTo(map);
