@@ -97,6 +97,20 @@
     	<img src="images/logo_kemenhub.png" alt="Logo Kemenhub">
     	<span class="judul-kemenhub">KEMENTERIAN PERHUBUNGAN</span>
 	</div>
+	<div style="position: absolute; top: 90px; left: 10px; z-index: 1000; background: white; padding: 8px; border-radius: 5px;">
+  		<label for="pulauSelect"><b>Filter Pulau:</b></label>
+  		<select id="pulauSelect">
+    		<option value="all">Semua</option>
+    		<option value="Jawa">Jawa</option>
+    		<option value="Bali">Bali</option>
+    		<option value="Sumatera">Sumatera</option>
+    		<option value="Kalimantan">Kalimantan</option>
+    		<option value="Sulawesi">Sulawesi</option>
+    		<option value="Nusa Tenggara">Nusa Tenggara</option>
+    		<option value="Maluku">Maluku</option>
+    		<option value="Papua">Papua</option>
+  		</select>
+	</div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
@@ -404,6 +418,50 @@
         position: 'topright'}));
 	document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
+	var bufferLayers = []; // simpan buffer radius biar bisa dihapus
+
+  document.getElementById("pulauSelect").addEventListener("change", function () {
+    const selectedPulau = this.value;
+
+    // Hapus semua buffer lama
+    bufferLayers.forEach(layer => map.removeLayer(layer));
+    bufferLayers = [];
+
+    // Loop ke semua titik bandara
+    layer_Data_Bandara_1.eachLayer(function (layer) {
+      const pulau = layer.feature.properties['Pulau'];
+      if (selectedPulau === "all" || pulau === selectedPulau) {
+        map.addLayer(layer);
+
+        // Tentukan radius berdasarkan pulau
+        let radius = 0;
+        switch (pulau) {
+          case "Jawa": radius = 50000; break;
+          case "Bali": radius = 75000; break;
+          case "Sumatera": radius = 75000; break;
+          case "Kalimantan": radius = 60000; break;
+          case "Sulawesi": radius = 60000; break;
+          case "Nusa Tenggara":
+          case "Maluku":
+          case "Papua": radius = 30000; break;
+          default: radius = 0;
+        }
+
+        // Gambar buffer
+        const buffer = L.circle(layer.getLatLng(), {
+          radius: radius,
+          color: "#0078FF",
+          weight: 1,
+          fillColor: "#88C5FF",
+          fillOpacity: 0.25
+        }).addTo(map);
+        bufferLayers.push(buffer);
+
+      } else {
+        map.removeLayer(layer);
+      }
+    });
+  });
         </script>
     </body>
 </html>
