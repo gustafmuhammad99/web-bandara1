@@ -429,39 +429,44 @@
 
     // Loop ke semua titik bandara
     layer_Data_Bandara__1.eachLayer(function (layer) {
-      const pulau = layer.feature.properties['Pulau'];
-      if (selectedPulau === "all" || pulau === selectedPulau) {
-        map.addLayer(layer);
+        const pulau = layer.feature.properties['Pulau'];
 
-        // Tentukan radius berdasarkan pulau
-        let radius = 0;
-        switch (pulau) {
-          case "Jawa": radius = 50000; break;
-          case "Bali": radius = 75000; break;
-          case "Sumatera": radius = 75000; break;
-          case "Kalimantan": radius = 60000; break;
-          case "Sulawesi": radius = 60000; break;
-          case "Nusa Tenggara":
-          case "Maluku":
-          case "Papua": radius = 30000; break;
-          default: radius = 0;
+        if (selectedPulau === "all") {
+            // Tampilkan semua titik, tanpa buffer
+            map.addLayer(layer);
+        } else if (pulau === selectedPulau) {
+            // Tampilkan hanya titik di pulau terpilih
+            map.addLayer(layer);
+
+            // Tentukan radius buffer
+            let radius = 0;
+            switch (pulau) {
+                case "Jawa": radius = 50000; break;
+                case "Bali": radius = 75000; break;
+                case "Sumatera": radius = 75000; break;
+                case "Kalimantan": radius = 60000; break;
+                case "Sulawesi": radius = 60000; break;
+                case "Nusa Tenggara":
+                case "Maluku":
+                case "Papua": radius = 30000; break;
+                default: radius = 0;
+            }
+
+            // Tambahkan buffer baru
+            const buffer = L.circle(layer.getLatLng(), {
+                radius: radius,
+                color: "#0078FF",
+                weight: 1,
+                fillColor: "#88C5FF",
+                fillOpacity: 0.25
+            }).addTo(map);
+            bufferLayers.push(buffer);
+        } else {
+            // Sembunyikan titik bandara di luar pulau terpilih
+            map.removeLayer(layer);
         }
-
-        // Gambar buffer
-        const buffer = L.circle(layer.getLatLng(), {
-          radius: radius,
-          color: "#0078FF",
-          weight: 1,
-          fillColor: "#88C5FF",
-          fillOpacity: 0.25
-        }).addTo(map);
-        bufferLayers.push(buffer);
-
-      } else {
-        map.removeLayer(layer);
-      }
     });
-  });
+});
         </script>
     </body>
 </html>
