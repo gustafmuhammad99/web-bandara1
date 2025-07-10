@@ -428,7 +428,7 @@
     bufferLayers = [];
 
     // Loop ke semua titik bandara
-    layer_Data_Bandara_1.eachLayer(function (layer) {
+    layer_Data_Bandara__1.eachLayer(function (layer) {
       const pulau = layer.feature.properties['Pulau'];
       if (selectedPulau === "all" || pulau === selectedPulau) {
         map.addLayer(layer);
