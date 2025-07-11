@@ -454,12 +454,13 @@
 
             // Tambahkan buffer baru
             const buffer = L.circle(layer.getLatLng(), {
-                radius: radius,
-                color: "#0078FF",
-                weight: 1,
-                fillColor: "#88C5FF",
-                fillOpacity: 0.25
-            }).addTo(map);
+  		radius: radius,
+  		color: "#0078FF",
+  		weight: 1,
+  		fillColor: "#88C5FF",
+ 	 	fillOpacity: 0.25,
+  		interactive: false // <--- ini dia bro!
+	    }).addTo(map);
             bufferLayers.push(buffer);
         } else {
             // Sembunyikan titik bandara di luar pulau terpilih
