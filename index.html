@@ -45,11 +45,11 @@
     		border-radius: 8px;
     		box-shadow: 0 0 5px rgba(0,0,0,0.2);
 		display: flex;
-    		align-items: center;
-    		gap: 10px;
+    			align-items: center;
+    			gap: 10px;
 		flex-wrap: wrap; /* 🔥 ini penting buat layar sempit */
-    		max-width: 95vw; /* biar gak mentok layar */
-    		box-sizing: border-box;
+    			max-width: 95vw; /* biar gak mentok layar */
+    			box-sizing: border-box;
 	}
 
 	#logo-kemenhub img {
@@ -71,7 +71,6 @@
     		font-size: 16px; /* Lebih besar */
     		font-weight: bold;
 	}
-
 	.judul-kemenhub div:nth-child(2),
 	.judul-kemenhub div:nth-child(3) {
     		font-size: 13px;
@@ -121,28 +120,18 @@
     		align-items: flex-start;
  	 }
 
-  	.judul-kemenhub {
-  		display: flex;
-  		flex-direction: column;
-  		font-family: Arial, sans-serif;
-  		line-height: 1.2;
-  		letter-spacing: 0.3px;
-  		margin-bottom: 2px;
+	/* Tambahan styling untuk judul */
+	.judul-kemenhub div:first-child {
+    		font-size: 18px;
+    		font-weight: bold;
+    		white-space: nowrap;
 	}
 
-	.judul-besar {
-  		font-size: 16px;
-  		font-weight: bold;
-  		color: #004ba8;
-  		white-space: nowrap;
+	.judul-kemenhub div:nth-child(2),
+	.judul-kemenhub div:nth-child(3) {
+    		font-size: 13px;
+    	white-space: nowrap;
 	}
-
-	.judul-kecil {
-  		font-size: 13px;
-  		color: #004ba8;
-  		white-space: nowrap;
-	}
-
   	#logo-kemenhub img {
    	height: 45px;
   	}
@@ -229,40 +218,53 @@
   		border-radius: 3px;
 	}
 	#legend-box {
-  position: absolute;
-  bottom: 30px;
-  right: 10px;
-  z-index: 1000;
-  background: white;
-  padding: 8px;
-  border-radius: 5px;
-  font-size: 13px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  font-family: Arial, sans-serif;
-}
+  		position: absolute;
+  		bottom: 30px;
+  		right: 10px;
+  		z-index: 1000;
+  		background: white;
+  		padding: 8px;
+  		border-radius: 5px;
+  		font-size: 13px;
+  		box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  		font-family: Arial, sans-serif;
+	}
 
-#legend-box button {
-  background: none;
-  border: none;
-  font-weight: bold;
-  color: #004ba8;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 5px;
-}
+	#legend-box button {
+  		background: none;
+  		border: none;
+  		font-weight: bold;
+  		color: #004ba8;
+  		cursor: pointer;
+  		padding: 0;
+  		margin-bottom: 5px;
+	}
 
-#legend-box i {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  opacity: 0.85;
-}
+	#legend-box i {
+  		display: inline-block;
+  		width: 18px;
+  		height: 18px;
+  		margin-right: 8px;
+  		opacity: 0.85;
+	}
         </style>
         <title></title>
     </head>
     <body>
-        <div id="map">
+        <!-- Legend Collapse -->
+	<div id="legend-box" style="position:absolute; bottom:10px; right:10px; z-index:1000; background:white; padding:10px; border-radius:6px; font-family:Arial, sans-serif; font-size:13px; box-shadow: 0 0 8px rgba(0,0,0,0.2);">
+  		<button onclick="toggleLegend()">Legenda Pemrakarsa ⮟</button>
+  		<div id="legend-content" style="display:none; margin-top:8px;">
+    		<div><i style="background: rgba(215,25,28,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> ANGKASA PURA INDONESIA</div>
+    		<div><i style="background: rgba(240,124,74,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> LAINNYA</div>
+    		<div><i style="background: rgba(254,201,128,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> SATKER/TNI</div>
+    		<div><i style="background: rgba(255,255,191,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> UPBU - DJU</div>
+    		<div><i style="background: rgba(199,232,173,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> UPT - DAERAH</div>
+    		<div><i style="background: rgba(128,191,171,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> UPT - DAERAH/SWASTA</div>
+    		<div><i style="background: rgba(43,131,186,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> Default</div>
+  		</div>
+	</div>
+	<div id="map">
         </div>
 	<div id="logo-kemenhub">
     	<img src="images/logo_kemenhub.png" alt="Logo Kemenhub">
@@ -284,7 +286,24 @@
     		<option value="Kep. Maluku">Kep. Maluku</option>
     		<option value="Papua">Papua</option>
   		</select>
-	</div>					
+	</div>
+	<!-- Search Form Dropdown -->
+	<div id="search-box" style="position:absolute; top: 140px; left: 10px; z-index:1000; background:white; padding:10px; border-radius:6px; font-family:Arial, sans-serif; font-size:13px;">
+    		<label><b>Mode Pencarian:</b></label>
+    		<select id="searchType">
+        	<option value="address">Cari Alamat</option>
+        	<option value="coords">Masukkan Koordinat</option>
+    		</select>
+    	<div id="search-address" style="margin-top:8px;">
+        	<input type="text" id="searchInput" placeholder="Nama kecamatan/kabupaten">
+        	<button onclick="searchByAddress()">Cari</button>
+    	</div>
+    	<div id="search-coords" style="display:none; margin-top:8px;">
+        	<input type="text" id="latInput" placeholder="Latitude">
+        	<input type="text" id="lngInput" placeholder="Longitude">
+        	<button onclick="searchByCoords()">Cari</button>
+    	</div>
+	</div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
