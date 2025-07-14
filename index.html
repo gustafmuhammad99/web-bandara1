@@ -283,7 +283,10 @@
 	}
 	.leaflet-control-zoom,
 	.leaflet-control-measure {
-    		display: none !important;
+    		visibility: hidden;
+    		position: absolute;
+    		top: -9999px;
+    		left: -9999px;
 	}
         </style>
         <title></title>
@@ -430,7 +433,18 @@
 	measureControl.addTo(map);
 	document.getElementById("toggle-measure").addEventListener("click", function () {
     // Simulasikan klik ke tombol asli Leaflet measure control
-    	document.querySelector(".leaflet-control-measure-toggle").click();
+    	//document.querySelector(".leaflet-control-measure-toggle").click();
+	let isMeasuring = false;
+	document.getElementById("toggle-measure").addEventListener("click", function () {
+    		if (!isMeasuring) {
+        	measureControl._toggleMeasure();
+        	isMeasuring = true;
+        	this.textContent = "❌ Nonaktifkan Ukur";
+    	} else {
+        	measureControl._toggleMeasure();
+        	isMeasuring = false;
+        	this.textContent = "🔍 Aktifkan Ukur";
+    	}
 	});
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
