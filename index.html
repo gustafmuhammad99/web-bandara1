@@ -162,7 +162,7 @@
         div.innerHTML += '<i style="background: rgba(43,131,186,1.0)"></i> (Lainnya/default)<br>';
         return div;
     	};
-    	legenda.addTo(map);</script>
+	</script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -178,7 +178,8 @@
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
         }).fitBounds([[-13.339375155650583,93.39483943175506],[15.91324599187611,141.27483908525505]]);
-        var hash = new L.Hash(map);
+        legenda.addTo(map);
+	var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         // remove popup's row if "visible-with-data"
