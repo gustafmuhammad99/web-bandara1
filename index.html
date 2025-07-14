@@ -406,7 +406,7 @@
         var zoomControl = L.control.zoom({
             position: 'topright'
         })
-	//.addTo(map);
+	.addTo(map);
         var measureControl = new L.Control.Measure({
             position: 'topright',
             primaryLengthUnit: 'meters',
@@ -414,7 +414,7 @@
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares'
         });
-        // measureControl.addTo(map);
+        measureControl.addTo(map);
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
@@ -865,13 +865,7 @@
     });
 });
 
-    // Jika mau auto-hide kalau klik luar form
-    document.addEventListener("click", function(e) {
-        if (!form.contains(e.target) && !toggle.contains(e.target)) {
-            form.style.display = "none";
-        }
-    });
-});
+    
 document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.getElementById("toggle-tools-btn");
     const sidebar = document.getElementById("sidebar-tools");
