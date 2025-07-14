@@ -201,7 +201,33 @@
   		border-radius: 5px;
   		font-size: 13px;
 	}
-	
+	#search-box {
+  		position: absolute;
+  		top: 190px;
+  		left: 10px;
+  		z-index: 1000;
+  		background: white;
+  		padding: 8px;
+  		border-radius: 5px;
+  		font-family: Arial, sans-serif;
+  		font-size: 13px;
+  		box-shadow: 0 0 5px rgba(0,0,0,0.1);
+	}
+	#search-box input {
+  		margin: 3px 0;
+  		padding: 5px;
+  		width: 140px;
+  		font-size: 13px;
+	}
+	#search-box button {
+  		padding: 5px 10px;
+  		font-size: 13px;
+  		background: #004ba8;
+  		color: white;
+  		border: none;
+  		cursor: pointer;
+  		border-radius: 3px;
+	}
 	.legend {
         padding: 10px;
         background: white;
@@ -665,6 +691,45 @@
         .className += ' fa fa-search';
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
+	// Ganti tampilan form tergantung jenis pencarian
+	document.getElementById("searchType").addEventListener("change", function () {
+  		if (this.value === "address") {
+    		document.getElementById("search-address").style.display = "block";
+    		document.getElementById("search-coords").style.display = "none";
+  		} else {
+    		document.getElementById("search-address").style.display = "none";
+    		document.getElementById("search-coords").style.display = "block";
+  		}
+	});
+
+// Fungsi cari alamat (pakai Nominatim)
+	function searchByAddress() {
+  		const query = document.getElementById("searchInput").value;
+  		fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+    		.then(res => res.json())
+    		.then(data => {
+      		if (data && data.length > 0) {
+        	const lat = parseFloat(data[0].lat);
+        	const lon = parseFloat(data[0].lon);
+        	map.setView([lat, lon], 13);
+        	L.marker([lat, lon]).addTo(map).bindPopup("Hasil pencarian").openPopup();
+      		} else {
+        	alert("Alamat tidak ditemukan.");
+     	 	}
+    	});
+	}
+
+// Fungsi cari berdasarkan koordinat
+function searchByCoords() {
+  const lat = parseFloat(document.getElementById("latInput").value);
+  const lng = parseFloat(document.getElementById("lngInput").value);
+  if (!isNaN(lat) && !isNaN(lng)) {
+    map.setView([lat, lng], 13);
+    L.marker([lat, lng]).addTo(map).bindPopup("Koordinat: " + lat + ", " + lng).openPopup();
+  } else {
+    alert("Masukkan koordinat yang valid.");
+  }
+}
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_Data_Bandara__1,
