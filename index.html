@@ -65,11 +65,12 @@
     		letter-spacing: 0.3px;
 		margin-bottom: 2px;
 		word-wrap: break-word;
-    		max-width: 200px; /* bisa ubah sesuai kebutuhan */
+    		max-width: 280px; /* bisa ubah sesuai kebutuhan */
 	}
 	.judul-kemenhub div:first-child {
     		font-size: 16px; /* Lebih besar */
     		font-weight: bold;
+		white-space: nowrap; /* ✅ tambah ini */
 	}
 	.judul-kemenhub div:nth-child(2),
 	.judul-kemenhub div:nth-child(3) {
@@ -118,20 +119,7 @@
   	#logo-kemenhub {
     		flex-direction: column;
     		align-items: flex-start;
- 	 }
-
-	/* Tambahan styling untuk judul */
-	.judul-kemenhub div:first-child {
-    		font-size: 18px;
-    		font-weight: bold;
-    		white-space: nowrap;
-	}
-
-	.judul-kemenhub div:nth-child(2),
-	.judul-kemenhub div:nth-child(3) {
-    		font-size: 13px;
-    	white-space: nowrap;
-	}
+ 	}
   	#logo-kemenhub img {
    	height: 45px;
   	}
@@ -166,10 +154,10 @@
 	}
 	#pulau-filter-box {
   		position: absolute;
-  		top: 90px;
+  		top: 110px;
   		left: 10px;
   		z-index: 1000;
-  		background: white;
+  		background: rgba(255, 255, 255, 0.7);
   		padding: 8px;
   		border-radius: 5px;
   		box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -192,10 +180,10 @@
 	}
 	#search-box {
   		position: absolute;
-  		top: 190px;
+  		top: 200px;
   		left: 10px;
   		z-index: 1000;
-  		background: white;
+  		background: rgba(255, 255, 255, 0.7);
   		padding: 8px;
   		border-radius: 5px;
   		font-family: Arial, sans-serif;
