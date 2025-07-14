@@ -228,28 +228,36 @@
   		cursor: pointer;
   		border-radius: 3px;
 	}
-	.legend {
-        padding: 10px;
-        background: white;
-        line-height: 18px;
-        color: #333;
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        border-radius: 5px;
-        font-size: 13px;
-    	}
+	#legend-box {
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  z-index: 1000;
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+}
 
-    	.legend i {
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 8px;
-        opacity: 0.85;
-    	}
-	
-    	.legend h4 {
-        margin: 0 0 5px;
-        font-size: 14px;
-    	}
+#legend-box button {
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #004ba8;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 5px;
+}
+
+#legend-box i {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  opacity: 0.85;
+}
         </style>
         <title></title>
     </head>
@@ -283,15 +291,17 @@
 	<script>const legenda = L.control({ position: 'bottomright' });
     	legenda.onAdd = function (map) {
         const div = L.DomUtil.create('div', 'info legend');
-        div.innerHTML += '<h4>Pemrakarsa</h4>';
-        div.innerHTML += '<i style="background: rgba(215,25,28,1.0)"></i> ANGKASA PURA INDONESIA<br>';
-        div.innerHTML += '<i style="background: rgba(240,124,74,1.0)"></i> LAINNYA<br>';
-        div.innerHTML += '<i style="background: rgba(254,201,128,1.0)"></i> SATKER/TNI<br>';
-        div.innerHTML += '<i style="background: rgba(255,255,191,1.0)"></i> UPBU - DJU<br>';
-        div.innerHTML += '<i style="background: rgba(199,232,173,1.0)"></i> UPT - DAERAH<br>';
-        div.innerHTML += '<i style="background: rgba(128,191,171,1.0)"></i> UPT - DAERAH/SWASTA<br>';
-        div.innerHTML += '<i style="background: rgba(43,131,186,1.0)"></i> (Lainnya/default)<br>';
-        return div;
+        <div id="legend-box">
+  		<button onclick="toggleLegend()">Legenda Pemrakarsa ⮟</button>
+  		<div id="legend-content" style="display:none;">
+    		<i style="background: rgba(215,25,28,1.0)"></i> ANGKASA PURA INDONESIA<br>
+    		<i style="background: rgba(240,124,74,1.0)"></i> LAINNYA<br>
+    		<i style="background: rgba(254,201,128,1.0)"></i> SATKER/TNI<br>
+    		<i style="background: rgba(255,255,191,1.0)"></i> UPBU - DJU<br>
+    		<i style="background: rgba(199,232,173,1.0)"></i> UPT - DAERAH<br>
+    		<i style="background: rgba(128,191,171,1.0)"></i> UPT - DAERAH/SWASTA<br>
+    		<i style="background: rgba(43,131,186,1.0)"></i> (Default)<br>
+  	</div>
     	};
 	</script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -660,6 +670,10 @@
             }
                     break;
             }
+	}
+	function toggleLegend() {
+  		const box = document.getElementById("legend-content");
+  		box.style.display = box.style.display === "none" ? "block" : "none";
 	}
 	map.createPane('pane_Data_Bandara__1');
         map.getPane('pane_Data_Bandara__1').style.zIndex = 401;
