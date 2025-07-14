@@ -143,7 +143,17 @@
     		overflow-y: auto;
     		font-family: Arial, sans-serif;
 	}
-
+	#sidebar-tools button {
+    		background: #004ba8;
+    		color: white;
+    		border: none;
+    		padding: 6px 12px;
+    		border-radius: 4px;
+    		cursor: pointer;
+    		font-size: 13px;
+    		margin: 4px 0;
+    		width: 100%; /* biar full lebar sidebar */
+	}
 	#sidebar-tools.open {
     		right: 0;
 	}
@@ -190,15 +200,14 @@
     		border-radius: 4px;
 	}
 	#pulau-filter-box {
-  		position: absolute;
-  		top: 110px;
-  		left: 10px;
-  		z-index: 1000;
-  		background: rgba(255, 255, 255, 0.7);
-  		padding: 8px;
-  		border-radius: 5px;
-  		box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  		position: relative; /* atau cukup hapus baris ini */
+    		margin-bottom: 10px;
+    		background: rgba(255, 255, 255, 0.7);
+    		padding: 8px;
+    		border-radius: 5px;
+    		box-shadow: 0 0 5px rgba(0,0,0,0.1);
 	}
+	
 	#pulauSelect , label[for="pulauSelect"] {
 	   	margin-top: 5px;
     		padding: 5px;
@@ -406,7 +415,7 @@
         var zoomControl = L.control.zoom({
              position: 'topright'
         })
-	.addTo(map);
+	;
         var measureControl = new L.Control.Measure({
             position: 'topright',
             primaryLengthUnit: 'meters',
@@ -414,7 +423,6 @@
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares'
         });
-        measureControl.addTo(map);
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
