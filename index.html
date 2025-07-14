@@ -890,8 +890,7 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleBtn.addEventListener("click", function () {
         sidebar.classList.toggle("open");
     });
-});
-// ⬇️ Ini yang lo tambahin biar klik di sidebar gak bentrok sama Leaflet
+	// ⬇️ Ini yang lo tambahin biar klik di sidebar gak bentrok sama Leaflet
     L.DomEvent.disableClickPropagation(document.getElementById('sidebar-tools'));
     L.DomEvent.disableClickPropagation(document.getElementById('tool-content'));
 });
