@@ -115,6 +115,43 @@
     		gap: 4px;
   		}
 	}
+	#toggle-tools-btn {
+    		position: absolute;
+    		top: 10px;
+    		right: 10px;
+    		background: rgba(0,0,0,0.6);
+   	 	color: white;
+    		padding: 8px 12px;
+		border-radius: 4px;
+		cursor: pointer;
+		z-index: 1001;
+		font-size: 18px;
+	}
+
+	#sidebar-tools {
+    		position: absolute;
+    		top: 0;
+    		right: -300px; /* hidden default */
+    		width: 280px;
+    		height: 100%;
+    		background: rgba(255,255,255,0.9);
+    		box-shadow: -2px 0 8px rgba(0,0,0,0.3);
+    		padding: 15px;
+    		box-sizing: border-box;
+    		transition: right 0.3s ease;
+    		z-index: 1000;
+    		overflow-y: auto;
+    		font-family: Arial, sans-serif;
+	}
+
+	#sidebar-tools.open {
+    		right: 0;
+	}
+
+	#sidebar-tools h4 {
+    		margin-top: 0;
+    		color: #004ba8;
+	}
 	@media screen and (max-width: 480px) {
   	#logo-kemenhub {
     		flex-direction: column;
@@ -252,6 +289,45 @@
     		<div><i style="background: rgba(43,131,186,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> Default</div>
   		</div>
 	</div>
+	<div id="toggle-tools-btn">
+    		<i class="fa fa-bars"></i>
+	</div>
+	<div id="sidebar-tools">
+    		<h4>Tools</h4>
+    <!-- nanti isinya pindahan dari search box & filter -->
+    	<div id="tool-content">
+        	<div id="pulau-filter-box">
+  			<label for="pulauSelect"><b>Filter Pulau:</b></label>
+  			<select id="pulauSelect">
+    			<option value="all">Semua</option>
+    			<option value="Jawa">Jawa</option>
+    			<option value="Bali">Bali</option>
+    			<option value="Sumatera">Sumatera</option>
+    			<option value="Kalimantan">Kalimantan</option>
+    			<option value="Sulawesi">Sulawesi</option>
+    			<option value="Nusa Tenggara">Nusa Tenggara</option>
+    			<option value="Kep. Maluku">Kep. Maluku</option>
+    			<option value="Papua">Papua</option>
+  			</select>
+		</div>
+		<div id="search-box" style="position:absolute; top: 140px; left: 10px; z-index:1000; background:white; padding:10px; border-radius:6px; font-family:Arial, sans-serif; font-size:13px;">
+    			<label><b>Mode Pencarian:</b></label>
+    			<select id="searchType">
+        		<option value="address">Cari Alamat</option>
+        		<option value="coords">Masukkan Koordinat</option>
+    			</select>
+    		<div id="search-address" style="margin-top:8px;">
+        		<input type="text" id="searchInput" placeholder="Nama kecamatan/kabupaten">
+        		<button onclick="searchByAddress()">Cari</button>
+    		</div>
+    		<div id="search-coords" style="display:none; margin-top:8px;">
+        		<input type="text" id="latInput" placeholder="Latitude">
+        		<input type="text" id="lngInput" placeholder="Longitude">
+        		<button onclick="searchByCoords()">Cari</button>
+    		</div>
+		</div>
+    	</div>
+	</div>
 	<div id="map">
         </div>
 	<div id="logo-kemenhub">
@@ -261,37 +337,6 @@
     		<div>DIREKTORAT JENDERAL PERHUBUNGAN UDARA</div>
     		<div>DIREKTORAT BANDAR UDARA</div>
 	</div>
-	</div>
-	<div id="pulau-filter-box">
-  		<label for="pulauSelect"><b>Filter Pulau:</b></label>
-  		<select id="pulauSelect">
-    		<option value="all">Semua</option>
-    		<option value="Jawa">Jawa</option>
-    		<option value="Bali">Bali</option>
-    		<option value="Sumatera">Sumatera</option>
-    		<option value="Kalimantan">Kalimantan</option>
-    		<option value="Sulawesi">Sulawesi</option>
-    		<option value="Nusa Tenggara">Nusa Tenggara</option>
-    		<option value="Kep. Maluku">Kep. Maluku</option>
-    		<option value="Papua">Papua</option>
-  		</select>
-	</div>
-	<!-- Search Form Dropdown -->
-	<div id="search-box" style="position:absolute; top: 140px; left: 10px; z-index:1000; background:white; padding:10px; border-radius:6px; font-family:Arial, sans-serif; font-size:13px;">
-    		<label><b>Mode Pencarian:</b></label>
-    		<select id="searchType">
-        	<option value="address">Cari Alamat</option>
-        	<option value="coords">Masukkan Koordinat</option>
-    		</select>
-    	<div id="search-address" style="margin-top:8px;">
-        	<input type="text" id="searchInput" placeholder="Nama kecamatan/kabupaten">
-        	<button onclick="searchByAddress()">Cari</button>
-    	</div>
-    	<div id="search-coords" style="display:none; margin-top:8px;">
-        	<input type="text" id="latInput" placeholder="Latitude">
-        	<input type="text" id="lngInput" placeholder="Longitude">
-        	<button onclick="searchByCoords()">Cari</button>
-    	</div>
 	</div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -819,6 +864,14 @@
         if (!form.contains(e.target) && !toggle.contains(e.target)) {
             form.style.display = "none";
         }
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-tools-btn");
+    const sidebar = document.getElementById("sidebar-tools");
+
+    toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
     });
 });
         </script>
