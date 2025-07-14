@@ -97,6 +97,28 @@
     		color: #004ba8;
     		font-weight: bold;
 	}
+	.legend {
+        padding: 10px;
+        background: white;
+        line-height: 18px;
+        color: #333;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        font-size: 13px;
+    	}
+
+    	.legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.85;
+    	}
+	
+    	.legend h4 {
+        margin: 0 0 5px;
+        font-size: 14px;
+    	}
         </style>
         <title></title>
     </head>
@@ -127,6 +149,20 @@
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
+	<script>const legenda = L.control({ position: 'bottomright' });
+    	legenda.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'info legend');
+        div.innerHTML += '<h4>Pemrakarsa</h4>';
+        div.innerHTML += '<i style="background: rgba(215,25,28,1.0)"></i> ANGKASA PURA INDONESIA<br>';
+        div.innerHTML += '<i style="background: rgba(240,124,74,1.0)"></i> LAINNYA<br>';
+        div.innerHTML += '<i style="background: rgba(254,201,128,1.0)"></i> SATKER/TNI<br>';
+        div.innerHTML += '<i style="background: rgba(255,255,191,1.0)"></i> UPBU - DJU<br>';
+        div.innerHTML += '<i style="background: rgba(199,232,173,1.0)"></i> UPT - DAERAH<br>';
+        div.innerHTML += '<i style="background: rgba(128,191,171,1.0)"></i> UPT - DAERAH/SWASTA<br>';
+        div.innerHTML += '<i style="background: rgba(43,131,186,1.0)"></i> (Lainnya/default)<br>';
+        return div;
+    	};
+    	legenda.addTo(map);</script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
