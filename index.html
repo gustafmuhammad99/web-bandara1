@@ -388,6 +388,20 @@
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
         }).fitBounds([[-13.339375155650583,93.39483943175506],[15.91324599187611,141.27483908525505]]);
+	var measureControl = new L.Control.Measure({
+    		position: 'topright',
+    		primaryLengthUnit: 'meters',
+    		secondaryLengthUnit: 'kilometers',
+    		primaryAreaUnit: 'sqmeters',
+    		secondaryAreaUnit: 'hectares'
+	});
+	measureControl.addTo(map);
+	let isMeasuring = false;
+		document.getElementById("toggle-measure").addEventListener("click", function () {
+    		measureControl._toggleMeasure();
+    		isMeasuring = !isMeasuring;
+    		this.textContent = isMeasuring ? "❌ Nonaktifkan Ukur" : "🔍 Aktifkan Ukur";
+	});
 	var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -423,29 +437,6 @@
              position: 'topright'
         })
 	.addTo(map);
-        var measureControl = new L.Control.Measure({
-            position: 'topright',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
-	measureControl.addTo(map);
-	document.getElementById("toggle-measure").addEventListener("click", function () {
-    // Simulasikan klik ke tombol asli Leaflet measure control
-    	//document.querySelector(".leaflet-control-measure-toggle").click();
-	let isMeasuring = false;
-	document.getElementById("toggle-measure").addEventListener("click", function () {
-    		if (!isMeasuring) {
-        	measureControl._toggleMeasure();
-        	isMeasuring = true;
-        	this.textContent = "❌ Nonaktifkan Ukur";
-    	} else {
-        	measureControl._toggleMeasure();
-        	isMeasuring = false;
-        	this.textContent = "🔍 Aktifkan Ukur";
-    	}
-	});
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
