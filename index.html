@@ -396,12 +396,6 @@
     		secondaryAreaUnit: 'hectares'
 	});
 	measureControl.addTo(map);
-	let isMeasuring = false;
-		document.getElementById("toggle-measure").addEventListener("click", function () {
-    		measureControl._toggleMeasure();
-    		isMeasuring = !isMeasuring;
-    		this.textContent = isMeasuring ? "❌ Nonaktifkan Ukur" : "🔍 Aktifkan Ukur";
-	});
 	var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -898,6 +892,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	// ⬇️ Ini yang lo tambahin biar klik di sidebar gak bentrok sama Leaflet
     L.DomEvent.disableClickPropagation(document.getElementById('sidebar-tools'));
     L.DomEvent.disableClickPropagation(document.getElementById('tool-content'));
+	// 🔧 Tambahin di sini ya cok:
+    let isMeasuring = false;
+    document.getElementById("toggle-measure").addEventListener("click", function () {
+        measureControl._toggleMeasure();
+        isMeasuring = !isMeasuring;
+        this.textContent = isMeasuring ? "❌ Nonaktifkan Ukur" : "🔍 Aktifkan Ukur";
+    });
 });
         </script>
     </body>
