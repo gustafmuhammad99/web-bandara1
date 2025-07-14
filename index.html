@@ -354,7 +354,15 @@
             secondaryAreaUnit: 'hectares'
         });
         measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        // Tombol custom pencarian (🔍)
+	var searchControl = L.control({position: 'topright'});
+		searchControl.onAdd = function(map) {
+    	var div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+    		div.innerHTML = '<a href="#" id="toggleSearch" title="Cari Lokasi" style="padding: 6px;"><i class="fa fa-search"></i></a>';
+    	return div;
+	};
+	searchControl.addTo(map);
+	document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
@@ -726,16 +734,16 @@
 	}
 
 // Fungsi cari berdasarkan koordinat
-function searchByCoords() {
-  const lat = parseFloat(document.getElementById("latInput").value);
-  const lng = parseFloat(document.getElementById("lngInput").value);
-  if (!isNaN(lat) && !isNaN(lng)) {
-    map.setView([lat, lng], 13);
-    L.marker([lat, lng]).addTo(map).bindPopup("Koordinat: " + lat + ", " + lng).openPopup();
-  } else {
-    alert("Masukkan koordinat yang valid.");
-  }
-}
+	function searchByCoords() {
+  		const lat = parseFloat(document.getElementById("latInput").value);
+  		const lng = parseFloat(document.getElementById("lngInput").value);
+  		if (!isNaN(lat) && !isNaN(lng)) {
+    		map.setView([lat, lng], 13);
+    		L.marker([lat, lng]).addTo(map).bindPopup("Koordinat: " + lat + ", " + lng).openPopup();
+  		} else {
+    		alert("Masukkan koordinat yang valid.");
+  		}
+	}
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_Data_Bandara__1,
@@ -793,6 +801,23 @@ function searchByCoords() {
         } else {
             // Sembunyikan titik bandara di luar pulau terpilih
             map.removeLayer(layer);
+        }
+    });
+});
+	document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("toggleSearch");
+    const form = document.getElementById("search-box");
+    form.style.display = "none"; // Disembunyiin awalnya
+
+    toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    });
+
+    // Jika mau auto-hide kalau klik luar form
+    document.addEventListener("click", function(e) {
+        if (!form.contains(e.target) && !toggle.contains(e.target)) {
+            form.style.display = "none";
         }
     });
 });
