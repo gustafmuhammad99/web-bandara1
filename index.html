@@ -122,9 +122,26 @@
  	 }
 
   	.judul-kemenhub {
-    		max-width: 100%;
-    		font-size: 12px;
-  	}
+  		display: flex;
+  		flex-direction: column;
+  		font-family: Arial, sans-serif;
+  		line-height: 1.2;
+  		letter-spacing: 0.3px;
+  		margin-bottom: 2px;
+	}
+
+	.judul-besar {
+  		font-size: 16px;
+  		font-weight: bold;
+  		color: #004ba8;
+  		white-space: nowrap;
+	}
+
+	.judul-kecil {
+  		font-size: 13px;
+  		color: #004ba8;
+  		white-space: nowrap;
+	}
 
   	#logo-kemenhub img {
    	height: 45px;
@@ -158,6 +175,16 @@
     		box-shadow: 0 0 3px rgba(0,0,0,0.3);
     		border-radius: 4px;
 	}
+	#pulau-filter-box {
+  		position: absolute;
+  		top: 90px;
+  		left: 10px;
+  		z-index: 1000;
+  		background: white;
+  		padding: 8px;
+  		border-radius: 5px;
+  		box-shadow: 0 0 5px rgba(0,0,0,0.1);
+	}
 	#pulauSelect , label[for="pulauSelect"] {
 	   	margin-top: 5px;
     		padding: 5px;
@@ -168,6 +195,13 @@
 		font-weight: bold;
     		max-width: 180px;
 	}
+	#pulauSelect {
+  		margin-top: 5px;
+  		padding: 5px;
+  		border-radius: 5px;
+  		font-size: 13px;
+	}
+	
 	.legend {
         padding: 10px;
         background: white;
@@ -202,19 +236,21 @@
 		<div>KEMENTERIAN PERHUBUNGAN</div>
     		<div>DIREKTORAT JENDERAL PERHUBUNGAN UDARA</div>
     		<div>DIREKTORAT BANDAR UDARA</div>
-		<label for="pulauSelect"><b>Filter Pulau:</b></label>
-  		<select id="pulauSelect">
-    			<option value="all">Semua</option>
-    			<option value="Jawa">Jawa</option>
-    			<option value="Bali">Bali</option>
-    			<option value="Sumatera">Sumatera</option>
-    			<option value="Kalimantan">Kalimantan</option>
-    			<option value="Sulawesi">Sulawesi</option>
-    			<option value="Nusa Tenggara">Nusa Tenggara</option>
-    			<option value="Kep. Maluku">Kep. Maluku</option>
-    			<option value="Papua">Papua</option>
-  		</select>
 	</div>
+	<div id="pulau-filter-box">
+  		<label for="pulauSelect"><b>Filter Pulau:</b></label>
+  		<select id="pulauSelect">
+    		<option value="all">Semua</option>
+    		<option value="Jawa">Jawa</option>
+    		<option value="Bali">Bali</option>
+    		<option value="Sumatera">Sumatera</option>
+    		<option value="Kalimantan">Kalimantan</option>
+    		<option value="Sulawesi">Sulawesi</option>
+    		<option value="Nusa Tenggara">Nusa Tenggara</option>
+    		<option value="Kep. Maluku">Kep. Maluku</option>
+    		<option value="Papua">Papua</option>
+  		</select>
+	</div>					
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
