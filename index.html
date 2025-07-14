@@ -306,7 +306,7 @@
     		<i class="fa fa-bars"></i>
 	</div>
 	<div id="sidebar-tools">
-    		<h4>Tools</h4>
+    		<h4>Tools</h4> <!-- PERLU DIPILIH JUDUL SIDEBAR YANG OKE -->
     <!-- nanti isinya pindahan dari search box & filter -->
     	<div id="tool-content">
         	<div id="pulau-filter-box">
@@ -352,7 +352,7 @@
 		</div>
 		<div style="margin-bottom: 10px;">
   			<label><b>Alat Ukur</b></label><br>
-  			<button onclick="measureControl._toggleMeasure()">🔍 Aktifkan Ukur</button>
+  			<button id="toggle-measure">🔍 Aktifkan Ukur</button>
 		</div>
 		</div>
 	</div>
@@ -428,6 +428,10 @@
             secondaryAreaUnit: 'hectares'
         });
 	measureControl.addTo(map);
+	document.getElementById("toggle-measure").addEventListener("click", function () {
+    // Simulasikan klik ke tombol asli Leaflet measure control
+    	document.querySelector(".leaflet-control-measure-toggle").click();
+	});
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
@@ -886,6 +890,10 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleBtn.addEventListener("click", function () {
         sidebar.classList.toggle("open");
     });
+});
+// ⬇️ Ini yang lo tambahin biar klik di sidebar gak bentrok sama Leaflet
+    L.DomEvent.disableClickPropagation(document.getElementById('sidebar-tools'));
+    L.DomEvent.disableClickPropagation(document.getElementById('tool-content'));
 });
         </script>
     </body>
