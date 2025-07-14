@@ -310,7 +310,17 @@
     			<option value="Papua">Papua</option>
   			</select>
 		</div>
-		<div id="search-box" style="position:absolute; top: 140px; left: 10px; z-index:1000; background:white; padding:10px; border-radius:6px; font-family:Arial, sans-serif; font-size:13px;">
+		<!-- === Zoom Control Manual === -->
+		<div style="margin-bottom: 10px;">
+  			<label><b>Zoom</b></label><br>
+  			<button onclick="map.zoomIn()">➕ Zoom In</button>
+  			<button onclick="map.zoomOut()">➖ Zoom Out</button>
+		</div>
+		<div style="margin-bottom: 10px;">
+  			<label><b>Alat Ukur</b></label><br>
+  			<button onclick="measureControl._toggleMeasure()">🔍 Aktifkan Ukur</button>
+		</div>
+		<div id="search-box" style="margin-bottom: 10px;">
     			<label><b>Mode Pencarian:</b></label>
     			<select id="searchType">
         		<option value="address">Cari Alamat</option>
@@ -325,6 +335,12 @@
         		<input type="text" id="lngInput" placeholder="Longitude">
         		<button onclick="searchByCoords()">Cari</button>
     		</div>
+		<!-- === Search Bandara Manual === -->
+		<div style="margin-bottom: 10px;">
+  			<label><b>Cari Bandara</b></label><br>
+  			<input type="text" id="search-bandara-manual" placeholder="Nama Bandara">
+  			<button onclick="cariBandara()">🔎 Cari</button>
+		</div>
 		</div>
 	</div>
 	</div>
@@ -390,7 +406,8 @@
 		}
         var zoomControl = L.control.zoom({
             position: 'topright'
-        }).addTo(map);
+        })
+	//.addTo(map);
         var measureControl = new L.Control.Measure({
             position: 'topright',
             primaryLengthUnit: 'meters',
@@ -398,7 +415,7 @@
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares'
         });
-        measureControl.addTo(map);
+        // measureControl.addTo(map);
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
@@ -406,7 +423,7 @@
     		div.innerHTML = '<a href="#" id="toggleSearch" title="Cari Lokasi" style="padding: 6px;"><i class="fa fa-search"></i></a>';
     	return div;
 	};
-	searchControl.addTo(map);
+	// searchControl.addTo(map);
 	document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
@@ -740,16 +757,6 @@
         });
         bounds_group.addLayer(layer_Data_Bandara__1);
         map.addLayer(layer_Data_Bandara__1);
-        var osmGeocoder = new L.Control.Geocoder({
-            collapsed: true,
-            position: 'topright',
-            text: 'Cari Lokasi',
-            defaultMarkGeocode: true
-        }).addTo(map);
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .className += ' fa fa-search';
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .title += 'Search for a place';
 	// Ganti tampilan form tergantung jenis pencarian
 	document.getElementById("searchType").addEventListener("change", function () {
   		if (this.value === "address") {
@@ -789,13 +796,25 @@
     		alert("Masukkan koordinat yang valid.");
   		}
 	}
-        setBounds();
-        map.addControl(new L.Control.Search({
-            layer: layer_Data_Bandara__1,
-            initial: false,
-            hideMarkerOnCollapse: true,
-            propertyName: 'Bandara',
-        position: 'topright'}));
+// Fungsi cari bandara
+	function cariBandara() {
+  		var keyword = document.getElementById('search-bandara-manual').value.toLowerCase();
+  		var found = false;
+
+  	layer_Data_Bandara__1.eachLayer(function (layer) {
+    		var nama = layer.feature.properties['Bandara'] || '';
+    		if (nama.toLowerCase().includes(keyword)) {
+      		map.setView(layer.getLatLng(), 13);
+      		layer.openPopup();
+      		found = true;
+    		}
+  	});
+
+  	if (!found) {
+    		alert("Bandara tidak ditemukan.");
+  		}
+	}
+	setBounds();
 	document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
 	document.getElementsByClassName('search-button')[0].title = 'Cari Bandara';
@@ -849,15 +868,6 @@
         }
     });
 });
-	document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("toggleSearch");
-    const form = document.getElementById("search-box");
-    form.style.display = "none"; // Disembunyiin awalnya
-
-    toggle.addEventListener("click", function (e) {
-        e.preventDefault();
-        form.style.display = form.style.display === "none" ? "block" : "none";
-    });
 
     // Jika mau auto-hide kalau klik luar form
     document.addEventListener("click", function(e) {
