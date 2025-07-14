@@ -47,6 +47,9 @@
 		display: flex;
     		align-items: center;
     		gap: 10px;
+		flex-wrap: wrap; /* 🔥 ini penting buat layar sempit */
+    		max-width: 95vw; /* biar gak mentok layar */
+    		box-sizing: border-box;
 	}
 
 	#logo-kemenhub img {
@@ -62,6 +65,23 @@
     		line-height: 1.4;
     		letter-spacing: 0.3px;
 		margin-bottom: 2px;
+		word-wrap: break-word;
+    		max-width: 200px; /* bisa ubah sesuai kebutuhan */
+	}
+	@media screen and (max-width: 480px) {
+  	#logo-kemenhub {
+    		flex-direction: column;
+    		align-items: flex-start;
+ 	 }
+
+  	.judul-kemenhub {
+    		max-width: 100%;
+    		font-size: 12px;
+  	}
+
+  	#logo-kemenhub img {
+   	height: 45px;
+  	}
 	}
 	/* Popup: teks + gambar */
 	.leaflet-popup-content {
