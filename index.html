@@ -357,7 +357,6 @@
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
-	</script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -815,9 +814,6 @@
   		}
 	}
 	setBounds();
-	document.getElementsByClassName('search-button')[0].className +=
-         ' fa fa-binoculars';
-	document.getElementsByClassName('search-button')[0].title = 'Cari Bandara';
 	var bufferLayers = []; // simpan buffer radius biar bisa dihapus
 
   document.getElementById("pulauSelect").addEventListener("change", function () {
