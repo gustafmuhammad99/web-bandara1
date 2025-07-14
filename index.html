@@ -415,7 +415,7 @@
         var zoomControl = L.control.zoom({
              position: 'topright'
         })
-	;
+	.addTo(map);
         var measureControl = new L.Control.Measure({
             position: 'topright',
             primaryLengthUnit: 'meters',
@@ -423,6 +423,7 @@
             primaryAreaUnit: 'sqmeters',
             secondaryAreaUnit: 'hectares'
         });
+	measureControl.addTo(map);
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
@@ -431,8 +432,8 @@
     	return div;
 	};
 	// searchControl.addTo(map);
-	document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
+	//document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        //document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
