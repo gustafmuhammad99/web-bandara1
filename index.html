@@ -403,18 +403,18 @@
 				popup._contentNode.classList.remove('media');
 			}
 		}
-        //var zoomControl = L.control.zoom({
-        //     position: 'topright'
-        //})
-	//.addTo(map);
-        //var measureControl = new L.Control.Measure({
-            //position: 'topright',
-            //primaryLengthUnit: 'meters',
-            //secondaryLengthUnit: 'kilometers',
-            //primaryAreaUnit: 'sqmeters',
-            //secondaryAreaUnit: 'hectares'
-        //});
-        //measureControl.addTo(map);
+        var zoomControl = L.control.zoom({
+             position: 'topright'
+        })
+	.addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topright',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
         // Tombol custom pencarian (🔍)
 	var searchControl = L.control({position: 'topright'});
 		searchControl.onAdd = function(map) {
