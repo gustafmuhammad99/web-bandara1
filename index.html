@@ -281,13 +281,6 @@
   		margin-right: 8px;
   		opacity: 0.85;
 	}
-	.leaflet-control-zoom,
-	.leaflet-control-measure {
-    		visibility: hidden;
-    		position: absolute;
-    		top: -9999px;
-    		left: -9999px;
-	}
         </style>
         <title></title>
     </head>
@@ -895,10 +888,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	// 🔧 Tambahin di sini ya cok:
     let isMeasuring = false;
     document.getElementById("toggle-measure").addEventListener("click", function () {
-        measureControl._toggleMeasure();
-        isMeasuring = !isMeasuring;
-        this.textContent = isMeasuring ? "❌ Nonaktifkan Ukur" : "🔍 Aktifkan Ukur";
-    });
+        if (!measureControl._container) return; // Safety check
+
+	if (isMeasuring) {
+        	measureControl._collapse(); // tutup panel
+        	this.textContent = "🔍 Aktifkan Ukur";
+    	} else {
+        	measureControl._expand(); // buka panel pengukuran
+        	this.textContent = "❌ Nonaktifkan Ukur";
+    	}
+    	isMeasuring = !isMeasuring;
+	});
 });
         </script>
     </body>
