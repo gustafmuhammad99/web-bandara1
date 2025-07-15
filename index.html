@@ -19,7 +19,7 @@
     		height: 100%;
     		padding: 0;
     		margin: 0;
-    		position: fixed; /* ⬅️ penting biar nggak terdorong oleh sidebar */
+    		position: absolute; 
     		top: 0;
     		left: 0;
     		z-index: 0; /* biar ada DI BELAKANG elemen lainnya */
@@ -279,6 +279,11 @@
   	#logo-kemenhub {
     		flex-direction: column;
     		align-items: flex-start;
+			osition: relative; /* ✅ penting supaya nggak ketiban sidebar */
+			z-index: 500; /* ✅ biar tetap di atas map */
+			width: 100%;
+			margin-bottom: 10px;
+	}
   	}
 
   	#logo-kemenhub img {
@@ -296,7 +301,7 @@
   	}
 	#sidebar-tools label,
   	#sidebar-tools select,
- 	 #sidebar-tools input,
+ 	#sidebar-tools input,
   	#sidebar-tools button {
     		display: block;
     		width: 100%;
@@ -927,6 +932,8 @@
     	// Toggle sidebar
     	toggleBtn.addEventListener("click", function () {
         sidebar.classList.toggle("open");
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
 
         // Scroll to top biar popup gak ketiban di HP
         if (sidebar.classList.contains("open")) {
