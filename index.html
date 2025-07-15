@@ -292,7 +292,18 @@
     </head>
     <body>
         <!-- Legend Collapse -->
-	<div id="legend-box" style="position:absolute; bottom:10px; left:10px; z-index:1000; background:white; padding:10px; border-radius:6px; font-family:Arial, sans-serif; font-size:13px; box-shadow: 0 0 8px rgba(0,0,0,0.2);">
+	<div id="legend-box" style="position:absolute; 
+		bottom:10px; 
+		left:10px; 
+		z-index:1000; 
+		background:white; 
+		padding:10px;
+		border-radius:6px; 
+		font-family:Arial, sans-serif; 
+		font-size:13px; 
+		box-shadow: 0 0 8px rgba(0,0,0,0.2);
+		max-width: 240px; 
+		word-wrap: break-word;">
   		<button onclick="toggleLegend()">PEMRAKARSA</button>
   		<div id="legend-content" style="display:none; margin-top:8px;">
     		<div><i style="background: rgba(215,25,28,1.0); width:12px; height:12px; display:inline-block; margin-right:6px;"></i> ANGKASA PURA INDONESIA</div>
@@ -308,7 +319,8 @@
     		<i class="fa fa-bars"></i>
 	</div>
 	<div id="sidebar-tools">
-    		<h4>Tools</h4> <!-- PERLU DIPILIH JUDUL SIDEBAR YANG OKE -->
+    		<h4>MENU</h4> <!-- PERLU DIPILIH JUDUL SIDEBAR YANG OKE -->
+		<div id="tool-content">
     <!-- nanti isinya pindahan dari search box & filter -->
     	<div id="tool-content">
         	<div id="pulau-filter-box">
@@ -355,6 +367,17 @@
 		<div style="margin-bottom: 10px;">
   			<label><b>Alat Ukur</b></label><br>
   			<button id="toggle-measure">🔍 Aktifkan Ukur</button>
+		</div>
+		<div style="margin-top: 15px;">
+  		<label><b>Tambah Data Baru</b></label><br>
+  			<button style="background: #004ba8; 
+				color: white; 
+				border: none; 
+				padding: 6px 12px; 
+				border-radius: 4px; 
+				cursor: pointer; 
+				font-size: 13px;" 
+				onclick="window.open('https://forms.gle/tQE4TfkEVZwcsQu77', '_blank')">📝 Buka Form</button>
 		</div>
 		</div>
 	</div>
