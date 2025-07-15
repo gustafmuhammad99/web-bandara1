@@ -81,20 +81,6 @@
 	.judul-kemenhub div:nth-child(3) {
     		font-size: 11px;
 	}
-	@media screen and (max-width: 480px) {
-		#sidebar-tools {
-    		padding-top: 120px;
-  		}
-	}
-  	#judul-container {
-    		flex-direction: column;
-    		align-items: flex-start;
-    		padding: 8px;
-    		width: 90%;
-    		font-size: 12px;
-    		line-height: 1.3;
-  	}
-
   	#judul-container h3 {
     		font-size: 13px;
     		word-break: break-word;
@@ -123,7 +109,6 @@
     		flex-wrap: wrap;
     		gap: 4px;
   		}
-	}
 	#toggle-tools-btn {
     		position: absolute;
     		top: 10px;
@@ -170,19 +155,6 @@
 	#sidebar-tools h4 {
     		margin-top: 0;
     		color: #004ba8;
-	}
-	 (max-width: 480px) {
-  	#logo-kemenhub {
-    		flex-direction: column;
-    		align-items: flex-start;
- 	}
-  	#logo-kemenhub img {
-   	height: 45px;
-  	}
-	}
-	/* Popup: teks + gambar */
-	.leaflet-popup-content {
-    		max-width: 600px !important;
 	}
 	.leaflet-popup-content img {
     		display: block;
@@ -296,10 +268,39 @@
     		left: 10px !important;
     		z-index: 1001;
 	}
+	/* ==== RESPONSIVE BREAKPOINTS ==== */
 	@media screen and (max-width: 768px) {
   	#sidebar-tools {
-    		padding-top: 120px; /* Tambah jarak biar isi sidebar gak ketiban logo */
+    		padding-top: 120px; /* biar gak ketiban logo di HP */
   		}
+	}
+
+	@media screen and (max-width: 480px) {
+  	#logo-kemenhub {
+    		flex-direction: column;
+    		align-items: flex-start;
+  	}
+
+  	#logo-kemenhub img {
+    		height: 45px;
+  	}
+
+  	.judul-kemenhub div:first-child {
+    		font-size: 14px;
+    		white-space: normal;
+  	}
+
+  	.judul-kemenhub div:nth-child(2),
+  	.judul-kemenhub div:nth-child(3) {
+    		font-size: 10px;
+  	}
+
+  	#sidebar-tools {
+    		padding-top: 140px; /* lebih lega di layar kecil */
+  		}
+	}
+	body {
+  		overflow-x: hidden;
 	}
         </style>
         <title></title>
