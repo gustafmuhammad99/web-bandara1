@@ -876,28 +876,30 @@
 });
 
     
-document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById("toggle-tools-btn");
-    const sidebar = document.getElementById("sidebar-tools");
+	document.addEventListener("DOMContentLoaded", function () {
+    		const toggleBtn = document.getElementById("toggle-tools-btn");
+    		const sidebar = document.getElementById("sidebar-tools");
 
-    toggleBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("open");
-    });
+    	toggleBtn.addEventListener("click", function () {
+        	sidebar.classList.toggle("open");
+    	});
 	// ⬇️ Ini yang lo tambahin biar klik di sidebar gak bentrok sama Leaflet
-    L.DomEvent.disableClickPropagation(document.getElementById('sidebar-tools'));
-    L.DomEvent.disableClickPropagation(document.getElementById('tool-content'));
+    	L.DomEvent.disableClickPropagation(document.getElementById('sidebar-tools'));
+    	L.DomEvent.disableClickPropagation(document.getElementById('tool-content'));
 	// 🔧 Tambahin di sini ya cok:
-    let isMeasuring = false;
-    document.getElementById("toggle-measure").addEventListener("click", function () {
-        if (!isMeasuring) {
-        	measureControl.addTo(map);           // Tambahin ke map pas pertama kali klik
-        	measureControl._expand();            // Buka panel pengukuran
+    	let isMeasuring = false;
+
+	document.getElementById("toggle-measure").addEventListener("click", function () {
+    		if (!isMeasuring) {
+        	measureControl.addTo(map);          	// ⬅️ Tambah ke map saat diaktifkan
+        	measureControl._expand();           	// ⬅️ Langsung tampilkan panel
         	this.textContent = "❌ Nonaktifkan Ukur";
-    	} else {
-        	measureControl._collapse();          // Tutup panel pengukuran
+    		} else {
+        	measureControl._collapse();         	// ⬅️ Tutup panel
+        	map.removeControl(measureControl); 	// ⬅️ Cabut dari map supaya nggak muncul defaultnya
         	this.textContent = "🔍 Aktifkan Ukur";
-    	}
-    		isMeasuring = !isMeasuring;
+    		}
+    	isMeasuring = !isMeasuring;
 	});
 });
         </script>
