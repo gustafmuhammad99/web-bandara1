@@ -118,7 +118,7 @@
     		padding: 8px 12px;
 		border-radius: 4px;
 		cursor: pointer;
-		z-index: 1001;
+		z-index: 3000;
 		font-size: 18px;
 	}
 
@@ -206,7 +206,7 @@
   		font-size: 13px;
 	}
 	#search-box {
-  		position: absolute;
+  		position: relative;
   		top: 200px;
   		left: 10px;
   		z-index: 1000;
@@ -294,7 +294,14 @@
   	.judul-kemenhub div:nth-child(3) {
     		font-size: 10px;
   	}
-
+	#sidebar-tools label,
+  	#sidebar-tools select,
+ 	 #sidebar-tools input,
+  	#sidebar-tools button {
+    		display: block;
+    		width: 100%;
+    		box-sizing: border-box;
+ 	}
   	#sidebar-tools {
     		padding-top: 140px; /* lebih lega di layar kecil */
   		}
@@ -917,27 +924,34 @@
     		const toggleBtn = document.getElementById("toggle-tools-btn");
     		const sidebar = document.getElementById("sidebar-tools");
 
+    	// Toggle sidebar
     	toggleBtn.addEventListener("click", function () {
-        	sidebar.classList.toggle("open");
+        sidebar.classList.toggle("open");
+
+        // Scroll to top biar popup gak ketiban di HP
+        if (sidebar.classList.contains("open")) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        	}
     	});
-	// ⬇️ Ini yang lo tambahin biar klik di sidebar gak bentrok sama Leaflet
+
+    	// Biar klik di sidebar gak bentrok sama leaflet
     	L.DomEvent.disableClickPropagation(document.getElementById('sidebar-tools'));
     	L.DomEvent.disableClickPropagation(document.getElementById('tool-content'));
-	// 🔧 Tambahin di sini ya cok:
-    	let isMeasuring = false;
 
-	document.getElementById("toggle-measure").addEventListener("click", function () {
-    		if (!isMeasuring) {
-        	measureControl.addTo(map);          	// ⬅️ Tambah ke map saat diaktifkan
-        	measureControl._expand();           	// ⬅️ Langsung tampilkan panel
-        	this.textContent = "❌ Nonaktifkan Ukur";
-    		} else {
-        	measureControl._collapse();         	// ⬅️ Tutup panel
-        	map.removeControl(measureControl); 	// ⬅️ Cabut dari map supaya nggak muncul defaultnya
-        	this.textContent = "🔍 Aktifkan Ukur";
-    		}
-    	isMeasuring = !isMeasuring;
-	});
+    	// Ukur aktif/nonaktif
+    	let isMeasuring = false;
+    	document.getElementById("toggle-measure").addEventListener("click", function () {
+        if (!isMeasuring) {
+            measureControl.addTo(map);          // Tambah ke map
+            measureControl._expand();           // Tampilkan panel
+            this.textContent = "❌ Nonaktifkan Ukur";
+        } else {
+            measureControl._collapse();         // Tutup panel
+            map.removeControl(measureControl);  // Hapus dari map
+            this.textContent = "🔍 Aktifkan Ukur";
+        }
+        isMeasuring = !isMeasuring;
+    });
 });
         </script>
     </body>
