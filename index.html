@@ -883,16 +883,15 @@ document.addEventListener("DOMContentLoaded", function () {
 	// 🔧 Tambahin di sini ya cok:
     let isMeasuring = false;
     document.getElementById("toggle-measure").addEventListener("click", function () {
-        if (!measureControl._container) return; // Safety check
-
-	if (isMeasuring) {
-        	measureControl._collapse(); // tutup panel
-        	this.textContent = "🔍 Aktifkan Ukur";
-    	} else {
-        	measureControl._expand(); // buka panel pengukuran
+        if (!isMeasuring) {
+        	measureControl.addTo(map);           // Tambahin ke map pas pertama kali klik
+        	measureControl._expand();            // Buka panel pengukuran
         	this.textContent = "❌ Nonaktifkan Ukur";
+    	} else {
+        	measureControl._collapse();          // Tutup panel pengukuran
+        	this.textContent = "🔍 Aktifkan Ukur";
     	}
-    	isMeasuring = !isMeasuring;
+    		isMeasuring = !isMeasuring;
 	});
 });
         </script>
