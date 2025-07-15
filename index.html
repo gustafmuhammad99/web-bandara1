@@ -34,7 +34,7 @@
      	    box-shadow: 0 0 3px rgba(0,0,0,0.3);
 	}
 
-/* Logo pojok kanan atas */
+	/* Logo pojok kanan atas */
 	#logo-kemenhub {
     		position: absolute;
     		top: 10px;
@@ -281,6 +281,12 @@
   		margin-right: 8px;
   		opacity: 0.85;
 	}
+	.leaflet-control-measure {
+    		position: absolute !important;
+    		top: 85px !important; /* ⬅️ ini jarak dari atas halaman, atur sesuai tinggi logo */
+    		left: 10px !important;
+    		z-index: 1001;
+	}
         </style>
         <title></title>
     </head>
@@ -382,7 +388,7 @@
             zoomControl:false, maxZoom:28, minZoom:1
         }).fitBounds([[-13.339375155650583,93.39483943175506],[15.91324599187611,141.27483908525505]]);
 	var measureControl = new L.Control.Measure({
-    		position: 'topright',
+    		position: 'topleft',
     		primaryLengthUnit: 'meters',
     		secondaryLengthUnit: 'kilometers',
     		primaryAreaUnit: 'sqmeters',
